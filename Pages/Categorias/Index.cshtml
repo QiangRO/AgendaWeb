@@ -1,0 +1,50 @@
+﻿@page
+@model Laboratorio_web_15_8_2022.Pages.Categorias.IndexModel
+@{
+    ViewData["Tittle"] = "Lista de las categorias";
+}
+<div class="card-body">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2 class="text-info">
+                    Lista de categorias creadas
+                </h2>
+            </div>
+            <div class="col-sm-4">
+                <a asp-page="Crear" class="btn btn-primary">Crear nueva Categoria</a>
+            </div>
+
+        </div>
+    </div>
+    
+</div>
+<div class="card-body">
+    @if(Model.Categorias.Count()>0)
+    {
+        <br />
+        <table class="table table-striped border">
+            <tr>
+                <th>@Html.DisplayNameFor(m=>m.Categorias.First().Id)</th>
+                <th>@Html.DisplayNameFor(m=>m.Categorias.First().Nombre)</th>
+                <th>@Html.DisplayNameFor(m=>m.Categorias.First().FechaCreacion)</th>
+                <th>Acciones</th>
+            </tr>
+            @foreach(var item in Model.Categorias)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m=>item.Id)</td>
+                    <td>@Html.DisplayFor(m=>item.Nombre)</td>
+                    <td>@Html.DisplayFor(m=>item.FechaCreacion)</td>
+                    <td>
+                    <a asp-route-id="@item.Id" asp-page="Editar" class="btn btn-success btn-sm">Editar</a>
+                    <button asp-page-handler="Borrar" asp-route-id="@item.Id" onclick="return confirm ('Se borrara la categoria, Esta seguro?')" class="btn btn-danger btn-sm">Borrar</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else{
+        <p>No hay categorias disponibles</p>
+    }
+</div>
