@@ -19,5 +19,16 @@ namespace Laboratorio_web_15_8_2022.Pages.Categorias
         {
             Categorias = await _context.Categoria.ToListAsync();
         }
+        public async Task<ActionResult> OnPostBorrar(int id)
+        {
+            var categoria = await _context.Categoria.FindAsync(id);
+            if(categoria == null)
+            {
+                return NotFound();
+            }
+            _context.Categoria.Remove(categoria);
+            await _context.SaveChangesAsync();
+            return RedirectToPage("Index");
+        }
     }
 }
